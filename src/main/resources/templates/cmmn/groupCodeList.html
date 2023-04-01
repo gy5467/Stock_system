@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<main layout:fragment="content">
+    <form method="post" th:action="@{/cmmn/groupCodeList}">
+        <table class="">
+            <colgroup>
+                <col style="width:50px;" /><col style="width:7.5%;" /><col style="width:auto;" /><col style="width:10%;" /><col style="width:15%;" /><col style="width:7.5%;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th scope="col"><input type="checkbox" /></th>
+                    <th scope="col">그룹 코드</th>
+                    <th scope="col">그룹 코드명</th>
+                    <th scope="col">그룹 코드설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td th:text="${list.cmmnGroupCode}"></td>
+                    <td th:text="${list.cmmnGroupNm}"></td>
+                    <td th:text="${list.cmmnGroupDc}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</main>
+</html>
