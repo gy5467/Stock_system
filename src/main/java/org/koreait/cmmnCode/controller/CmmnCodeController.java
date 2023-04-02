@@ -2,9 +2,10 @@ package org.koreait.cmmnCode.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.koreait.cmmnCode.Service.CmmnCodeGroupAddService;
+import org.koreait.cmmnCode.Service.CmmnCodeGroupService;
 import org.koreait.cmmnCode.Validator.CmmnCodeGroupAddValidator;
 import org.koreait.cmmnCode.entities.CmmnCodeGroupAdd;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -12,16 +13,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/cmmn/groupCodeAdd")
-@RequiredArgsConstructor    // 생성자 주입
-public class CmmnCodeGroupAddController {
+@RequestMapping("/cmmn/*")
+@RequiredArgsConstructor
+public class CmmnCodeController {
 
-    private final CmmnCodeGroupAddValidator validator;
+    @Autowired
+    private CmmnCodeGroupAddValidator validator;
+    @Autowired
+    private CmmnCodeGroupService service;
 
-    private final CmmnCodeGroupAddService service;
+    /** 공통 그룹 코드 조회 */
+    @GetMapping("groupCodeList")
+    public String cmmnCodeGroup(Model model) {
+        List<CmmnCodeGroupAdd> list = service.getCmmnCodeGroupList();
+        model.addAttribute("list", list);
 
-    @GetMapping
+        return "cmmn/groupCodeList";
+    }
+
+    /** 공통 그룹 코드 추가 */
+    @GetMapping("/groupCodeAdd")
     public String groupCodeGroup(Model model) {
 
         CmmnCodeGroupAdd cmmnCodeGroupAdd = new CmmnCodeGroupAdd();
@@ -29,7 +43,8 @@ public class CmmnCodeGroupAddController {
         return "cmmn/groupCodeAdd";
     }
 
-    @PostMapping
+    /** 공통 그룹 코드 추가 */
+    @PostMapping("/groupCodeAdd")
     public String groupCodeGroupPs(@Valid CmmnCodeGroupAdd cmmnCodeGroupAdd, Errors errors){   // @Valid - 객체의 제약조건을 검증
 
         validator.validate(cmmnCodeGroupAdd, errors);

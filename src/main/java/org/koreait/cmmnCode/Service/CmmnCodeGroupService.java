@@ -1,7 +1,6 @@
 package org.koreait.cmmnCode.Service;
 
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.koreait.cmmnCode.entities.CmmnCodeGroup;
 import org.koreait.cmmnCode.entities.CmmnCodeGroupAdd;
 import org.koreait.cmmnCode.repositories.CmmnCodeGroupRepository;
@@ -16,6 +15,7 @@ public class CmmnCodeGroupService {
     @Autowired
     private CmmnCodeGroupRepository repository;
 
+    /** 공통 그룹 코드 조회 */
     @Transactional
     public List<CmmnCodeGroupAdd> getCmmnCodeGroupList(){
         List<CmmnCodeGroup> cmmnCodeGroups = repository.findAll();
@@ -30,5 +30,11 @@ public class CmmnCodeGroupService {
             cmmnCodeGroupAdds.add(cmmnCodeGroupAdd);
         }
         return cmmnCodeGroupAdds;
+    }
+
+    /** 공통 그룹 코드 추가 */
+    public void add(CmmnCodeGroupAdd cmmnCodeGroupAdd){
+        CmmnCodeGroup cmmnCodeGroup = CmmnCodeGroupAdd.of(cmmnCodeGroupAdd);
+        repository.save(cmmnCodeGroup);
     }
 }

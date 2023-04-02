@@ -31,6 +31,7 @@ public class CmmnCodeGroupAddValidator implements Validator {
             long count = repository.count(builder);
             if(count > 0){
                 errors.rejectValue("cmmnGroupCode", "DuplicateGroupCode", "이미 추가된 그룹코드입니다.");
+                System.out.println(errors);
             }
         }
 
