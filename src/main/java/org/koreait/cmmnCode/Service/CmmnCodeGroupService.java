@@ -2,7 +2,7 @@ package org.koreait.cmmnCode.Service;
 
 import jakarta.transaction.Transactional;
 import org.koreait.cmmnCode.entities.CmmnCodeGroup;
-import org.koreait.cmmnCode.entities.CmmnCodeGroupAdd;
+import org.koreait.cmmnCode.entities.CmmnCodeGroupDto;
 import org.koreait.cmmnCode.repositories.CmmnCodeGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,12 @@ public class CmmnCodeGroupService {
 
     /** 공통 그룹 코드 조회 */
     @Transactional
-    public List<CmmnCodeGroupAdd> getCmmnCodeGroupList(){
+    public List<CmmnCodeGroupDto> getCmmnCodeGroupList(){
         List<CmmnCodeGroup> cmmnCodeGroups = repository.findAll();
-        List<CmmnCodeGroupAdd> cmmnCodeGroupAdds = new ArrayList<>();
+        List<CmmnCodeGroupDto> cmmnCodeGroupAdds = new ArrayList<>();
 
         for(CmmnCodeGroup code : cmmnCodeGroups){
-            CmmnCodeGroupAdd cmmnCodeGroupAdd = CmmnCodeGroupAdd.builder()
+            CmmnCodeGroupDto cmmnCodeGroupAdd = CmmnCodeGroupDto.builder()
                     .cmmnGroupCode(code.getCmmnGroupCode())
                     .cmmnGroupNm(code.getCmmnGroupNm())
                     .cmmnGroupDc(code.getCmmnGroupDc())
@@ -33,8 +33,8 @@ public class CmmnCodeGroupService {
     }
 
     /** 공통 그룹 코드 추가 */
-    public void add(CmmnCodeGroupAdd cmmnCodeGroupAdd){
-        CmmnCodeGroup cmmnCodeGroup = CmmnCodeGroupAdd.of(cmmnCodeGroupAdd);
+    public void add(CmmnCodeGroupDto cmmnCodeGroupAdd){
+        CmmnCodeGroup cmmnCodeGroup = CmmnCodeGroupDto.of(cmmnCodeGroupAdd);
         repository.save(cmmnCodeGroup);
     }
 }

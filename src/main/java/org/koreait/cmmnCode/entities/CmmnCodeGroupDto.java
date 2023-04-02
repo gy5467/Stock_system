@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CmmnCodeGroupAdd {
+public class CmmnCodeGroupDto {
 
     // 공통 그룹 코드
     @NotBlank(message = "필수 입력 항목입니다.")
@@ -24,7 +24,7 @@ public class CmmnCodeGroupAdd {
     // 공통 그룹 코드설명
     private String cmmnGroupDc;
 
-    public static CmmnCodeGroup of(CmmnCodeGroupAdd cmmnCodeGroupAdd){
+    public static CmmnCodeGroup of(CmmnCodeGroupDto cmmnCodeGroupAdd){
         ModelMapper mapper = new ModelMapper();
         return mapper.map(cmmnCodeGroupAdd, CmmnCodeGroup.class);
     }

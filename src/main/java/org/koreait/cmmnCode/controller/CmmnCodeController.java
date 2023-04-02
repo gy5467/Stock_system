@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.cmmnCode.Service.CmmnCodeGroupService;
 import org.koreait.cmmnCode.Validator.CmmnCodeGroupAddValidator;
-import org.koreait.cmmnCode.entities.CmmnCodeGroupAdd;
+import org.koreait.cmmnCode.entities.CmmnCodeGroupDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,25 +27,30 @@ public class CmmnCodeController {
 
     /** 공통 그룹 코드 조회 */
     @GetMapping("groupCodeList")
-    public String cmmnCodeGroup(Model model) {
-        List<CmmnCodeGroupAdd> list = service.getCmmnCodeGroupList();
+    public String cmmnCodeGroupList(Model model) {
+        List<CmmnCodeGroupDto> list = service.getCmmnCodeGroupList();
         model.addAttribute("list", list);
 
         return "cmmn/groupCodeList";
     }
 
+    @PostMapping("groupCodeList")
+    public String cmmnCodeGroupListPs(){
+        return "cmmn/groupCodeAdd";
+    }
+
     /** 공통 그룹 코드 추가 */
     @GetMapping("/groupCodeAdd")
-    public String groupCodeGroup(Model model) {
+    public String cmmnCodeGroupAdd(Model model) {
 
-        CmmnCodeGroupAdd cmmnCodeGroupAdd = new CmmnCodeGroupAdd();
+        CmmnCodeGroupDto cmmnCodeGroupAdd = new CmmnCodeGroupDto();
         model.addAttribute("cmmnCodeGroupAdd", cmmnCodeGroupAdd);
         return "cmmn/groupCodeAdd";
     }
 
     /** 공통 그룹 코드 추가 */
     @PostMapping("/groupCodeAdd")
-    public String groupCodeGroupPs(@Valid CmmnCodeGroupAdd cmmnCodeGroupAdd, Errors errors){   // @Valid - 객체의 제약조건을 검증
+    public String cmmnCodeGroupAddPs(@Valid CmmnCodeGroupDto cmmnCodeGroupAdd, Errors errors){   // @Valid - 객체의 제약조건을 검증
 
         validator.validate(cmmnCodeGroupAdd, errors);
 
@@ -55,6 +60,6 @@ public class CmmnCodeController {
 
         service.add(cmmnCodeGroupAdd);
 
-        return "redirect:/cmmn/groupCodeAdd";
+        return "redirect:/cmmn/groupCodeList";
     }
 }
