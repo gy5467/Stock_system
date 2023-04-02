@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <main layout:fragment="content">
     <form method="post" th:action="@{/cmmn/groupCodeList}">
         <table class="">
@@ -15,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr style="text-align: center;" th:each="list : ${list}">
                     <td><input type="checkbox" /></td>
                     <td th:text="${list.cmmnGroupCode}"></td>
                     <td th:text="${list.cmmnGroupNm}"></td>
