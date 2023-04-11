@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<head>
+    <title>공통 코드 그룹 목록</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
 <main layout:fragment="content">
     <form method="post" th:action="@{/cmmn/groupCodeList}">
-        <button type="submit">등록</button>
-        <button type="submit">수정</button>
-        <button type="submit">삭제</button>
-        <table class="">
+        <a class="btn2" href="#" th:href="@{/cmmn/groupCodeAdd}">등록</a>
+        <table class="wrap">
+            <caption>공통 코드 목록</caption>
             <colgroup>
-                <col style="width:50px;" /><col style="width:7.5%;" /><col style="width:auto;" /><col style="width:10%;" /><col style="width:15%;" /><col style="width:7.5%;" />
+                <col width="5%">
+                <col width="23%">
+                <col width="23%">
+                <col width="7%">
+                <col width="10%">
             </colgroup>
             <thead>
                 <tr>
-                    <th scope="col"><input type="checkbox" /></th>
-                    <th scope="col">그룹 코드</th>
-                    <th scope="col">그룹 코드명</th>
-                    <th scope="col">그룹 코드설명</th>
+                    <th scope="col">순번</th>
+                    <th scope="col">그룹코드</th>
+                    <th scope="col">그룹코드명</th>
+                    <th scope="col">사용여부</th>
+                    <th scope="col">관리</th>
                 </tr>
             </thead>
             <tbody>
-                <tr style="text-align: center;" th:each="list : ${list}">
-                    <td><input type="checkbox" /></td>
+                <tr th:each="list : ${list}">
+                    <td th:text="${list.cmmnGroupNo}"></td>
                     <td th:text="${list.cmmnGroupCode}"></td>
                     <td th:text="${list.cmmnGroupNm}"></td>
-                    <td th:text="${list.cmmnGroupDc}"></td>
+                    <td th:text="${list.useAt}"></td>
+                    <td>
+                        <a class="btn2" href="#" th:href="@{/cmmn/groupCodeEdit/{cmmnGroupCode}(cmmnGroupCode=${list.cmmnGroupCode})}">수정</a>
+                        <a class="btn2" href="#" th:href="@{/cmmn/delete/{cmmnGroupNo}(cmmnGroupNo=${list.cmmnGroupNo})}">삭제</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

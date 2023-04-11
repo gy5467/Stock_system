@@ -23,9 +23,10 @@ public class CmmnCodeGroupService {
 
         for(CmmnCodeGroup code : cmmnCodeGroups){
             CmmnCodeGroupDto cmmnCodeGroupAdd = CmmnCodeGroupDto.builder()
+                    .cmmnGroupNo(code.getCmmnGroupNo())
                     .cmmnGroupCode(code.getCmmnGroupCode())
                     .cmmnGroupNm(code.getCmmnGroupNm())
-                    .cmmnGroupDc(code.getCmmnGroupDc())
+                    .useAt(code.getUseAt())
                     .build();
             cmmnCodeGroupAdds.add(cmmnCodeGroupAdd);
         }
@@ -33,8 +34,40 @@ public class CmmnCodeGroupService {
     }
 
     /** 공통 그룹 코드 추가 */
-    public void add(CmmnCodeGroupDto cmmnCodeGroupAdd){
-        CmmnCodeGroup cmmnCodeGroup = CmmnCodeGroupDto.of(cmmnCodeGroupAdd);
+    @Transactional
+    public void add(CmmnCodeGroupDto cmmnCodeGroupDto){
+        CmmnCodeGroup cmmnCodeGroup = CmmnCodeGroupDto.of(cmmnCodeGroupDto);
         repository.save(cmmnCodeGroup);
+     }
+
+    /** 공통 그룹 코드 수정 */
+    @Transactional
+    public void update(CmmnCodeGroup cmmnCodeGroup){
+        repository.save(cmmnCodeGroup);
+    }
+
+    /** 공통 그룹 코드 수정 데이터 */
+    @Transactional
+    public CmmnCodeGroupDto edit(String cmmnGroupCode){
+        CmmnCodeGroup cmmnCodeGroup = repository.findByCmmnGroupCode(cmmnGroupCode);
+
+        CmmnCodeGroupDto cmmnCodeGroupDto = CmmnCodeGroupDto.builder()
+                .cmmnGroupNo(cmmnCodeGroup.getCmmnGroupNo())
+                .cmmnGroupCode(cmmnCodeGroup.getCmmnGroupCode())
+                .cmmnGroupNm(cmmnCodeGroup.getCmmnGroupNm())
+                .cmmnGroupDc(cmmnCodeGroup.getCmmnGroupDc())
+                .build();
+        return cmmnCodeGroupDto;
+    }
+
+    /** 공통 그룹 코드 수정할 코드*/
+    public CmmnCodeGroup view(String cmmnGroupCode){
+        return repository.findByCmmnGroupCode(cmmnGroupCode);
+    }
+
+    /** 공통 그룹 코드 삭제 */
+    @Transactional
+    public void delete(Long cmmnGroupNo) {
+        repository.deleteById(cmmnGroupNo);
     }
 }
