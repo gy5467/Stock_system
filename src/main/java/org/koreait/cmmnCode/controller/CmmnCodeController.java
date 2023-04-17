@@ -3,14 +3,19 @@ package org.koreait.cmmnCode.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.cmmnCode.Service.CmmnCodeGroupService;
-import org.koreait.cmmnCode.Validator.CmmnCodeGroupAddValidator;
-import org.koreait.cmmnCode.entities.CmmnCodeGroup;
+import org.koreait.cmmnCode.Service.CmmnCodeService;
+import org.koreait.cmmnCode.Validator.CmmnCodeAddValidator;
+import org.koreait.cmmnCode.entities.CmmnCodeDto;
 import org.koreait.cmmnCode.entities.CmmnCodeGroupDto;
+import org.koreait.cmmnCode.repositories.CmmnCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -20,68 +25,48 @@ import java.util.List;
 public class CmmnCodeController {
 
     @Autowired
-    private CmmnCodeGroupAddValidator validator;
-    @Autowired
-    private CmmnCodeGroupService service;
+    private CmmnCodeAddValidator validator;
 
-    /** 공통 그룹 코드 조회 GET*/
-    @GetMapping("groupCodeList")
-    public String cmmnCodeGroupList(Model model) {
-        List<CmmnCodeGroupDto> list = service.getCmmnCodeGroupList();
+    @Autowired
+    private CmmnCodeService service;
+
+    @Autowired
+    private CmmnCodeGroupService groupService;
+
+    /** 공통 코드 조회 GET */
+    @GetMapping("/codeList/{cmmnGroupCode}")
+    public String cmmnCodeList(@PathVariable("cmmnGroupCode") String cmmnGroupCode, Model model){
+        List<CmmnCodeDto> list = service.getCmmnCodeList();
         model.addAttribute("list", list);
 
-        return "cmmn/groupCodeList";
+        CmmnCodeGroupDto cmmnCodeGroupDto = groupService.edit(cmmnGroupCode);
+        model.addAttribute("gr", cmmnCodeGroupDto);
+
+        return "cmmn/codeList";
     }
 
-    /** 공통 그룹 코드 추가 GET*/
-    @GetMapping("/groupCodeAdd")
-    public String cmmnCodeGroupAdd(Model model) {
-        CmmnCodeGroupDto cmmnCodeGroupAdd = new CmmnCodeGroupDto();
-        model.addAttribute("cmmnCodeGroupAdd", cmmnCodeGroupAdd);
-        return "cmmn/groupCodeAdd";
+    /** 공통 코드 추가 GET */
+    @GetMapping("/codeAdd/{cmmnGroupCode}")
+    public String cmmnCodeAdd(@PathVariable("cmmnGroupCode") String cmmnGroupCode, Model model){
+        CmmnCodeGroupDto cmmnCodeGroupDto = groupService.edit(cmmnGroupCode);
+        model.addAttribute("list", cmmnCodeGroupDto);
+
+        CmmnCodeDto cmmnCodeDto = new CmmnCodeDto();
+        model.addAttribute("code", cmmnCodeDto);
+        return "cmmn/codeAdd";
     }
 
-    /** 공통 그룹 코드 추가 POST*/
-    @PostMapping("/groupCodeAdd")
-    public String cmmnCodeGroupAddPs(@Valid CmmnCodeGroupDto cmmnCodeGroupDto, Errors errors){   // @Valid - 객체의 제약조건을 검증
-
-        validator.validate(cmmnCodeGroupDto, errors);
+    /** 공통 코드 추가 POST */
+    @PostMapping("/codeAdd")
+    public String cmmnCodeAddPs(@Valid CmmnCodeDto cmmnCodeDto, Errors errors){
+        validator.validate(cmmnCodeDto, errors);
 
         if(errors.hasErrors()){
-            return "cmmn/groupCodeAdd";
+            return "cmmn/codeAdd";
         }
 
-        service.add(cmmnCodeGroupDto);
+        service.add(cmmnCodeDto);
 
-        return "redirect:/cmmn/groupCodeList";
-    }
-
-    /** 공통 그룹 코드 수정 GET*/
-    @GetMapping("/groupCodeEdit/{cmmnGroupCode}")
-    public String edit(@PathVariable("cmmnGroupCode") String cmmnGroupCode, Model model){
-        CmmnCodeGroupDto cmmnCodeGroupDto = service.edit(cmmnGroupCode);
-        model.addAttribute("list", cmmnCodeGroupDto);
-        return "cmmn/groupCodeEdit";
-    }
-
-    /** 공통 그룹 코드 수정 POST*/
-    @PostMapping("/groupCodeEdit/{cmmnGroupCode}")
-    public String update(@PathVariable("cmmnGroupCode") String cmmnGroupCode, CmmnCodeGroup cmmnCodeGroup){
-        CmmnCodeGroup codeNo = service.view(cmmnGroupCode);
-
-        codeNo.setCmmnGroupNm(cmmnCodeGroup.getCmmnGroupNm());
-        codeNo.setCmmnGroupDc(cmmnCodeGroup.getCmmnGroupDc());
-        service.update(codeNo);
-        return "redirect:/cmmn/groupCodeList";
-    }
-
-    /** 공통 그룹 코드 삭제 */
-    @GetMapping("/delete")
-    public String delete(Long cmmnGroupNo){
-//        CmmnCodeGroup codeNo = service.view(cmmnGroupCode);
-//
-//        codeNo.setUseAt("N");
-        service.delete(cmmnGroupNo);
-        return "redirect:/cmmn/groupCodeList";
+        return "redirect:/cmmn/codeList";
     }
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <title>공통 코드 추가</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<main layout:fragment="content">
+    <form method="post" th:action="@{/cmmn/codeAdd}">
+        <input type="hidden" name="_method" th:value="put" />
+        <input type="hidden" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}" />
+        <dl>
+            <dt>공통 그룹 코드</dt>
+            <dd>
+                <input type="text" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}">
+            </dd>
+        </dl>
+        <dl>
+            <dt>공통 코드</dt>
+            <dd>
+                <input type="text" name="cmmnCode">
+            </dd>
+        </dl>
+        <dl>
+            <dt>공통 코드명</dt>
+            <dd>
+                <input type="text" name="cmmnCodeNm">
+            </dd>
+        </dl>
+        <dl>
+            <dt>공통 코드 설명</dt>
+            <dd>
+                <input type="text" name="cmmnCodeDc">
+            </dd>
+        </dl>
+        <button type="submit">추가</button>
+    </form>
+</main>
+</html>

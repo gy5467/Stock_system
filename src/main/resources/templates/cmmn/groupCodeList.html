@@ -8,7 +8,7 @@
     <form method="post" th:action="@{/cmmn/groupCodeList}">
         <a class="btn2" href="#" th:href="@{/cmmn/groupCodeAdd}">등록</a>
         <table class="wrap">
-            <caption>공통 코드 목록</caption>
+            <caption>공통 코드 그룹 목록</caption>
             <colgroup>
                 <col width="5%">
                 <col width="23%">
@@ -17,7 +17,7 @@
                 <col width="10%">
             </colgroup>
             <thead>
-                <tr>
+                <tr class="th_header">
                     <th scope="col">순번</th>
                     <th scope="col">그룹코드</th>
                     <th scope="col">그룹코드명</th>
@@ -33,7 +33,7 @@
                     <td th:text="${list.useAt}"></td>
                     <td>
                         <a class="btn2" href="#" th:href="@{/cmmn/groupCodeEdit/{cmmnGroupCode}(cmmnGroupCode=${list.cmmnGroupCode})}">수정</a>
-                        <a class="btn2" href="#" th:href="@{/cmmn/delete/{cmmnGroupNo}(cmmnGroupNo=${list.cmmnGroupNo})}">삭제</a>
+                        <a class="btn2" href="#" th:href="@{/cmmn/codeList/{cmmnGroupCode}(cmmnGroupCode=${list.cmmnGroupCode})}">선택</a>
                     </td>
                 </tr>
             </tbody>

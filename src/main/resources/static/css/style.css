@@ -11,24 +11,26 @@ img {border:0;}
 .btn:hover {background: #fff; color: #000;}
 .btn2 {display: inline-block; border: 1px solid #a5b7c6; box-shadow: none; padding: 2px 7px; border-radius: 8px; coursor: pointer; font-size: 15px; color:#374957;}
 .btn2:hover {background: #000; color: #fff;}
-section > a.btn {display:inline-block; width:50px; line-height:25px; text-align:center; background-color:#222; color:#fff;}
+section > a.btn {display:inline-block; width:60px; line-height:25px; text-align:center; background-color:#222; color:#fff;}
 /** 공통 버튼 E */
 
 /** 관리자 헤더 S */
 header {padding: 0 20px; display: flex; justify-content: space-between; height: 50px; background: #D3D3D3; border-bottom: 1px solid #000; align-items: center;}
 header > section {display: flex;}
-nav {max-weight: 1080px;}
-li > a {align-items: center;}
+nav {align-self:center; padding-left: 40px;}
+ul li {display: inline-block; padding: 0 10px;}
+li > a {color: #000; font-size:1.2em;}
+li > a:hover {text-decoration: underline;}
 /** 관리자 헤더 E */
 
 /** 관리자 메인 S */
-tr, td {text-align:center; border-bottom:1px solid black;}
+td {text-align:center; border-top:1px solid black;}
 tbody > tr:hover {background: #dcdcdc;}
 caption {padding-bottom: 5px;}
-th {background-color:#e8e8e8; padding:5px; text-align:center; font-weight:bold; font-size:1.0em; text-align:center; border-bottom:1px solid black;}
-table {height:100px; width:900px; border-top:3px solid black; margin-top: 20px;}
+.th_header {background-color:#e8e8e8; padding:5px; text-align:center; font-weight:bold; font-size:1.0em; text-align:center; border-bottom:1px solid black;}
+.list {}
 section > a {margin: 5px;}
-.wrap {max-width: 900px; margin: 0 auto;}
+.wrap {height:100px; width:900px; border-top:3px solid black; margin-top: 20px; border-bottom:1px solid black; max-width: 900px; margin: 0 auto;}
 div {text-align: center;}
 /** 관리자 메인 E */
 

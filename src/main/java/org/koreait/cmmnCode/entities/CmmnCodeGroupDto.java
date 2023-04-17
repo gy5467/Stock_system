@@ -13,8 +13,10 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 public class CmmnCodeGroupDto {
 
-    // 공통 그룹 코드
+    // 공통 그룹 코드 순번
     private Long cmmnGroupNo;
+
+    // 공통 그룹 코드
     @NotBlank(message = "필수 입력 항목입니다.")
     private String cmmnGroupCode;
 
@@ -25,7 +27,8 @@ public class CmmnCodeGroupDto {
     // 공통 그룹 코드설명
     private String cmmnGroupDc;
 
-    private String useAt;
+    // 사용여부
+    private String useAt = "Y";
 
     public static CmmnCodeGroup of(CmmnCodeGroupDto cmmnCodeGroupDto){
         ModelMapper mapper = new ModelMapper();
