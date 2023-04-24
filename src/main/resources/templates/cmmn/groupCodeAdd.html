@@ -6,25 +6,38 @@
 </head>
 <main layout:fragment="content">
     <form method="post" th:action="@{/cmmn/groupCodeAdd}">
-        <dl>
-            <dt>공통 그룹 코드</dt>
-            <dd>
-                <input type="text" name="cmmnGroupCode">
-            </dd>
-        </dl>
-        <dl>
-            <dt>공통 그룹 코드명</dt>
-            <dd>
-                <input type="text" name="cmmnGroupNm">
-            </dd>
-        </dl>
-        <dl>
-            <dt>공통 그룹 코드설명</dt>
-            <dd>
-                <input type="text" name="cmmnGroupDc">
-            </dd>
-        </dl>
-        <button type="submit">추가</button>
+        <table class="code_add">
+            <tr>
+                <th>공통 그룹 코드</th>
+                <td>
+                    <input type="text" name="cmmnGroupCode">
+                </td>
+            </tr>
+            <tr>
+                <th>공통 그룹 코드명</th>
+                <td>
+                    <input type="text" name="cmmnGroupNm">
+                </td>
+            </tr>
+            <tr>
+                <th>사용 여부</th>
+                <td>
+                    <select name="useAt">
+                        <option value="Y">Y</option>
+                        <option value="N">N</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>공통 그룹 코드설명</th>
+                <td>
+                    <textarea type="text" name="cmmnGroupDc"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="sort">
+            <button type="submit">추가</button>
+        </div>
     </form>
 </main>
 </html>

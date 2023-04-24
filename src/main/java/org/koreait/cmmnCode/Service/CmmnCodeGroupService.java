@@ -56,6 +56,7 @@ public class CmmnCodeGroupService {
                 .cmmnGroupCode(cmmnCodeGroup.getCmmnGroupCode())
                 .cmmnGroupNm(cmmnCodeGroup.getCmmnGroupNm())
                 .cmmnGroupDc(cmmnCodeGroup.getCmmnGroupDc())
+                .useAt(cmmnCodeGroup.getUseAt())
                 .build();
         return cmmnCodeGroupDto;
     }

@@ -7,27 +7,38 @@
 </head>
 <main layout:fragment="content">
     <form method="post" th:action="@{'/cmmn/groupCodeEdit/' + ${list.cmmnGroupCode}}">
-        <input type="hidden" name="_method" th:value="put" />
-        <input type="hidden" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}" />
-        <dl>
-            <dt>공통 그룹 코드</dt>
-            <dd>
-                <input type="text" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}">
-            </dd>
-        </dl>
-        <dl>
-            <dt>공통 그룹 코드명</dt>
-            <dd>
-                <input type="text" name="cmmnGroupNm" th:value="${list.cmmnGroupNm}">
-            </dd>
-        </dl>
-        <dl>
-            <dt>공통 그룹 코드설명</dt>
-            <dd>
-                <input type="text" name="cmmnGroupDc" th:value="${list.cmmnGroupDc}">
-            </dd>
-        </dl>
-        <button type="submit">수정</button>
+        <table class="code_add">
+            <tr>
+                <th>공통 그룹 코드</th>
+                <td>
+                    <input type="text" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}">
+                </td>
+            </tr>
+            <tr>
+                <th>공통 그룹 코드명</th>
+                <td>
+                    <input type="text" name="cmmnGroupNm" th:value="${list.cmmnGroupNm}">
+                </td>
+            </tr>
+            <tr>
+                <th>사용 여부</th>
+                <td>
+                    <select name="useAt" th:value="${list.useAt}">
+                        <option th:selected="${list.useAt}=='Y'">Y</option>
+                        <option th:selected="${list.useAt}=='N'">N</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>공통 그룹 코드설명</th>
+                <td>
+                    <textarea type="text" name="cmmnGroupDc" th:text="${list.cmmnGroupDc}"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="sort">
+            <button type="submit">수정</button>
+        </div>
     </form>
 </main>
 </html>

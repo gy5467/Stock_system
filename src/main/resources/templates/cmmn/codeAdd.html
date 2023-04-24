@@ -5,34 +5,51 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <main layout:fragment="content">
-    <form method="post" th:action="@{/cmmn/codeAdd}">
-        <input type="hidden" name="_method" th:value="put" />
-        <input type="hidden" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}" />
-        <dl>
-            <dt>공통 그룹 코드</dt>
-            <dd>
-                <input type="text" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}">
-            </dd>
-        </dl>
-        <dl>
-            <dt>공통 코드</dt>
-            <dd>
-                <input type="text" name="cmmnCode">
-            </dd>
-        </dl>
-        <dl>
-            <dt>공통 코드명</dt>
-            <dd>
-                <input type="text" name="cmmnCodeNm">
-            </dd>
-        </dl>
-        <dl>
-            <dt>공통 코드 설명</dt>
-            <dd>
-                <input type="text" name="cmmnCodeDc">
-            </dd>
-        </dl>
-        <button type="submit">추가</button>
+    <form class="code_add" method="post" th:action="@{/cmmn/codeAdd}">
+        <table class="code_add">
+            <tr>
+                <th>공통 그룹 코드</th>
+                <td>
+                    <input type="text" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}">
+                </td>
+            </tr>
+            <tr>
+                <th>공통 코드</th>
+                <td>
+                    <input type="text" name="cmmnCode">
+                </td>
+            </tr>
+            <tr>
+                <th>공통 코드명</th>
+                <td>
+                    <input type="text" name="cmmnCodeNm">
+                </td>
+            </tr>
+            <tr>
+                <th>정렬 순서</th>
+                <td>
+                    <input type="text" name="sort">
+                </td>
+            </tr>
+            <tr>
+                <th>사용 여부</th>
+                <td>
+                    <select name="useAt">
+                        <option value="Y">Y</option>
+                        <option value="N">N</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>공통 코드 설명</th>
+                <td>
+                    <textarea type="text" name="cmmnCodeDc"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="sort">
+            <button type="submit">추가</button>
+        </div>
     </form>
 </main>
 </html>

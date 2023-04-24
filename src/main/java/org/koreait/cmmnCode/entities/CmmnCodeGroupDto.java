@@ -28,7 +28,7 @@ public class CmmnCodeGroupDto {
     private String cmmnGroupDc;
 
     // 사용여부
-    private String useAt = "Y";
+    private String useAt;
 
     public static CmmnCodeGroup of(CmmnCodeGroupDto cmmnCodeGroupDto){
         ModelMapper mapper = new ModelMapper();

@@ -28,7 +28,7 @@ public class CmmnCodeDto {
     private long sort;
 
     // 사용 여부
-    private String useAt = "Y";
+    private String useAt;
 
     public static CmmnCode of(CmmnCodeDto cmmnCodeDto){
         ModelMapper mapper = new ModelMapper();

@@ -71,6 +71,7 @@ public class CmmnCodeGroupController {
 
         codeNo.setCmmnGroupNm(cmmnCodeGroup.getCmmnGroupNm());
         codeNo.setCmmnGroupDc(cmmnCodeGroup.getCmmnGroupDc());
+        codeNo.setUseAt(cmmnCodeGroup.getUseAt());
         service.update(codeNo);
         return "redirect:/cmmn/groupCodeList";
     }

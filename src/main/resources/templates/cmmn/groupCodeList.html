@@ -6,8 +6,10 @@
 </head>
 <main layout:fragment="content">
     <form method="post" th:action="@{/cmmn/groupCodeList}">
-        <a class="btn2" href="#" th:href="@{/cmmn/groupCodeAdd}">등록</a>
-        <table class="wrap">
+        <div class="sort2">
+            <a class="btn2" href="#" th:href="@{/cmmn/groupCodeAdd}">등록</a>
+        </div>
+        <table class="code_list">
             <caption>공통 코드 그룹 목록</caption>
             <colgroup>
                 <col width="5%">
@@ -25,7 +27,7 @@
                     <th scope="col">관리</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="hover">
                 <tr th:each="list : ${list}">
                     <td th:text="${list.cmmnGroupNo}"></td>
                     <td th:text="${list.cmmnGroupCode}"></td>

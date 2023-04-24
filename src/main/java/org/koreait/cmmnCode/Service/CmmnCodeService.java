@@ -21,25 +21,6 @@ public class CmmnCodeService {
     @Autowired
     private CmmnCodeGroupRepository groupRepository;
 
-    /** 공통 코드 조회 */
-    @Transactional
-    public List<CmmnCodeDto> getCmmnCodeList(){
-        List<CmmnCode> cmmnCodes = repository.findAll();
-        List<CmmnCodeDto> cmmnCodeAdds = new ArrayList<>();
-
-        for(CmmnCode code : cmmnCodes){
-            CmmnCodeDto cmmnCodeDto = CmmnCodeDto.builder()
-                    .cmmnCode(code.getCmmnCode())
-                    .cmmnCodeNm(code.getCmmnCodeNm())
-                    .cmmnCodeDc(code.getCmmnCodeDc())
-                    .sort(code.getSort())
-                    .useAt(code.getUseAt())
-                    .build();
-            cmmnCodeAdds.add(cmmnCodeDto);
-        }
-        return cmmnCodeAdds;
-    }
-
     /** 공통 코드 추가 */
     @Transactional
     public void add(CmmnCodeDto cmmnCodeDto){
@@ -54,7 +35,12 @@ public class CmmnCodeService {
         CmmnCodeGroupDto cmmnCodeGroupDto = CmmnCodeGroupDto.builder()
                 .cmmnGroupCode(cmmnCodeGroup.getCmmnGroupCode())
                 .build();
-        System.out.println("테스트" + cmmnCodeGroupDto);
         return cmmnCodeGroupDto;
+    }
+
+    @Transactional
+    public CmmnCode listPS(String cmmnGroupCode){
+        CmmnCode cmmnCode = repository.findByCmmnCode(cmmnGroupCode);
+        return cmmnCode;
     }
 }

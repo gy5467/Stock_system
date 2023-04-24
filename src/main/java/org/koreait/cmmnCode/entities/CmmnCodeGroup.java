@@ -32,7 +32,7 @@ public class CmmnCodeGroup {
 
 	// 사용여부
 	@Column(nullable = false, length = 1)
-	private String useAt = "Y";
+	private String useAt;
 
 	// 최초 등록자 ID
 	@Column(nullable = true, length = 12)

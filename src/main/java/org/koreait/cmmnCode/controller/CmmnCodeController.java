@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.cmmnCode.Service.CmmnCodeGroupService;
 import org.koreait.cmmnCode.Service.CmmnCodeService;
 import org.koreait.cmmnCode.Validator.CmmnCodeAddValidator;
+import org.koreait.cmmnCode.entities.CmmnCode;
 import org.koreait.cmmnCode.entities.CmmnCodeDto;
 import org.koreait.cmmnCode.entities.CmmnCodeGroupDto;
+import org.koreait.cmmnCode.repositories.CmmnCodeGroupRepository;
 import org.koreait.cmmnCode.repositories.CmmnCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,10 +35,13 @@ public class CmmnCodeController {
     @Autowired
     private CmmnCodeGroupService groupService;
 
+    @Autowired
+    private CmmnCodeRepository repository;
+
     /** 공통 코드 조회 GET */
     @GetMapping("/codeList/{cmmnGroupCode}")
     public String cmmnCodeList(@PathVariable("cmmnGroupCode") String cmmnGroupCode, Model model){
-        List<CmmnCodeDto> list = service.getCmmnCodeList();
+        List<CmmnCode> list = repository.search(cmmnGroupCode);
         model.addAttribute("list", list);
 
         CmmnCodeGroupDto cmmnCodeGroupDto = groupService.edit(cmmnGroupCode);
@@ -49,10 +54,9 @@ public class CmmnCodeController {
     @GetMapping("/codeAdd/{cmmnGroupCode}")
     public String cmmnCodeAdd(@PathVariable("cmmnGroupCode") String cmmnGroupCode, Model model){
         CmmnCodeGroupDto cmmnCodeGroupDto = groupService.edit(cmmnGroupCode);
-        model.addAttribute("list", cmmnCodeGroupDto);
-
         CmmnCodeDto cmmnCodeDto = new CmmnCodeDto();
-        model.addAttribute("code", cmmnCodeDto);
+        cmmnCodeDto.setCmmnGroupCode(cmmnCodeGroupDto.getCmmnGroupCode());
+        model.addAttribute("list", cmmnCodeDto);
         return "cmmn/codeAdd";
     }
 
@@ -60,13 +64,15 @@ public class CmmnCodeController {
     @PostMapping("/codeAdd")
     public String cmmnCodeAddPs(@Valid CmmnCodeDto cmmnCodeDto, Errors errors){
         validator.validate(cmmnCodeDto, errors);
+        CmmnCode add = service.listPS(cmmnCodeDto.getCmmnGroupCode());
 
+        System.out.println("post 코드 테스트 : " + add);
         if(errors.hasErrors()){
             return "cmmn/codeAdd";
         }
 
         service.add(cmmnCodeDto);
 
-        return "redirect:/cmmn/codeList";
+        return "redirect:/cmmn/codeList/" + add;
     }
 }
