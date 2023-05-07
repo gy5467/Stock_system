@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CmmnCodeGroup {
 
-	// 공통 그룹 코드
+	// 공통 그룹 코드 순번
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long cmmnGroupNo;
 
@@ -39,7 +39,7 @@ public class CmmnCodeGroup {
 	private String regId;
 
 	// 최초 등록일시
-	@Column(nullable = false)
+	@Column(updatable = false)
 	@CreationTimestamp
 	private LocalDateTime regDt;
 
@@ -48,7 +48,7 @@ public class CmmnCodeGroup {
 	private String modId;
 
 	// 최종 등록일시
-	@Column(nullable = false)
+	@Column(insertable = false)
 	@UpdateTimestamp
 	private LocalDateTime modDt;
 }

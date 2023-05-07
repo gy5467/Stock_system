@@ -1,14 +1,14 @@
 package org.koreait.cmmnCode.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -19,12 +19,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CmmnCode {
 
+	// 공통 코드 순번
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long cmmnCodeNo;
+
 	// 공통 그룹 코드
 	@Column(length = 45, nullable = false)
 	private String cmmnGroupCode;
 
 	// 공통 코드
-	@Id
 	@Column(length = 45, nullable = false)
 	private String cmmnCode;
 
@@ -48,7 +51,7 @@ public class CmmnCode {
 	private String regId;
 
 	// 최초 등록일시
-	@Column(nullable = false)
+	@Column(updatable = false)
 	@CreationTimestamp
 	private LocalDateTime regDt;
 
@@ -57,7 +60,7 @@ public class CmmnCode {
 	private String modId;
 
 	// 최종 등록자 ID
-	@Column(nullable = false)
+	@Column(insertable = false)
 	@UpdateTimestamp
 	private LocalDateTime modDt;
 }

@@ -3,15 +3,10 @@ package org.koreait.cmmnCode.Service;
 import jakarta.transaction.Transactional;
 import org.koreait.cmmnCode.entities.CmmnCode;
 import org.koreait.cmmnCode.entities.CmmnCodeDto;
-import org.koreait.cmmnCode.entities.CmmnCodeGroup;
-import org.koreait.cmmnCode.entities.CmmnCodeGroupDto;
 import org.koreait.cmmnCode.repositories.CmmnCodeGroupRepository;
 import org.koreait.cmmnCode.repositories.CmmnCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CmmnCodeService {
@@ -28,19 +23,28 @@ public class CmmnCodeService {
         repository.save(cmmnCode);
     }
 
+    /**
+     * 공통 코드 수정
+     */
     @Transactional
-    public CmmnCodeGroupDto groupCode(String cmmnGroupCode){
-        CmmnCodeGroup cmmnCodeGroup = groupRepository.findByCmmnGroupCode(cmmnGroupCode);
+    public CmmnCodeDto edit(Long cmmnCodeNo){
+        CmmnCode code = repository.findByCmmnCodeNo(cmmnCodeNo);
 
-        CmmnCodeGroupDto cmmnCodeGroupDto = CmmnCodeGroupDto.builder()
-                .cmmnGroupCode(cmmnCodeGroup.getCmmnGroupCode())
+        CmmnCodeDto cmmnCodeDto = CmmnCodeDto.builder()
+                .cmmnCodeNo(code.getCmmnCodeNo())
+                .cmmnGroupCode(code.getCmmnGroupCode())
+                .cmmnCode(code.getCmmnCode())
+                .cmmnCodeNm(code.getCmmnCodeNm())
+                .cmmnCodeDc(code.getCmmnCodeDc())
+                .sort(code.getSort())
+                .useAt(code.getUseAt())
                 .build();
-        return cmmnCodeGroupDto;
+        return cmmnCodeDto;
     }
 
-    @Transactional
-    public CmmnCode listPS(String cmmnGroupCode){
-        CmmnCode cmmnCode = repository.findByCmmnCode(cmmnGroupCode);
-        return cmmnCode;
+    /** 공통 코드 삭제 */
+    public void delete(Long cmmnCodeNo){
+        CmmnCode cmmnCode = repository.findByCmmnCodeNo(cmmnCodeNo);
+        repository.delete(cmmnCode);
     }
 }

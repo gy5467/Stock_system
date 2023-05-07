@@ -12,6 +12,9 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 public class CmmnCodeDto {
 
+    // 공통 코드 순번
+    private Long cmmnCodeNo;
+
     // 공통 그룹 코드
     private String cmmnGroupCode;
 

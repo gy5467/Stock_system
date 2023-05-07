@@ -34,8 +34,8 @@
                 <td th:text="${list.cmmnCodeNm}"></td>
                 <td th:text="${list.useAt}"></td>
                 <td>
-                    <a class="btn2" href="#" th:href="@{/cmmn/codeEdit/{cmmnCode}(cmmnCode=${list.cmmnCode})}">수정</a>
-                    <a class="btn2" href="#" th:href="@{/cmmn/delete/{cmmnCode}(cmmnCode=${list.cmmnCode})}">삭제</a>
+                    <a class="btn2" href="#" th:href="@{/cmmn/codeEdit(cmmnCodeNo=${list.cmmnCodeNo})}">수정</a>
+                    <a class="btn2" href="#" th:href="@{/cmmn/delete/{cmmnCodeNo}(cmmnCodeNo=${list.cmmnCodeNo})}">삭제</a>
                 </td>
             </tr>
             </tbody>

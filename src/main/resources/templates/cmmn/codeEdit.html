@@ -5,8 +5,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <main layout:fragment="content">
-    <form method="post" th:action="@{/cmmn/codeAdd}">
+    <form method="post" th:action="@{/cmmn/codeEdit}">
         <table class="code_add">
+            <input type="hidden" name="cmmnCodeNo" th:value="${list.cmmnCodeNo}">
             <tr>
                 <th>공통 그룹 코드</th>
                 <td>
@@ -16,39 +17,39 @@
             <tr>
                 <th>공통 코드</th>
                 <td>
-                    <input type="text" name="cmmnCode">
+                    <input type="text" name="cmmnCode" th:value="${list.cmmnCode}">
                 </td>
             </tr>
             <tr>
                 <th>공통 코드명</th>
                 <td>
-                    <input type="text" name="cmmnCodeNm">
+                    <input type="text" name="cmmnCodeNm" th:value="${list.cmmnCodeNm}">
                 </td>
             </tr>
             <tr>
                 <th>정렬 순서</th>
                 <td>
-                    <input type="text" name="sort">
+                    <input type="text" name="sort" th:value="${list.sort}">
                 </td>
             </tr>
             <tr>
                 <th>사용 여부</th>
                 <td>
-                    <select name="useAt">
-                        <option value="Y">Y</option>
-                        <option value="N">N</option>
+                    <select name="useAt" th:value="${list.useAt}">
+                        <option th:selected="${list.useAt}=='Y'">Y</option>
+                        <option th:selected="${list.useAt}=='N'">N</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <th>공통 코드 설명</th>
+                <th>공통 코드설명</th>
                 <td>
-                    <textarea type="text" name="cmmnCodeDc"></textarea>
+                    <textarea type="text" name="cmmnCodeDc" th:text="${list.cmmnCodeDc}"></textarea>
                 </td>
             </tr>
         </table>
         <div class="sort">
-            <button type="submit">추가</button>
+            <button type="submit">수정</button>
         </div>
     </form>
 </main>
