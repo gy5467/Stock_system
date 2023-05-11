@@ -7,21 +7,15 @@ import org.koreait.cmmnCode.Service.CmmnCodeService;
 import org.koreait.cmmnCode.Validator.CmmnCodeAddValidator;
 import org.koreait.cmmnCode.entities.CmmnCode;
 import org.koreait.cmmnCode.entities.CmmnCodeDto;
-import org.koreait.cmmnCode.entities.CmmnCodeGroup;
 import org.koreait.cmmnCode.entities.CmmnCodeGroupDto;
-import org.koreait.cmmnCode.repositories.CmmnCodeGroupRepository;
 import org.koreait.cmmnCode.repositories.CmmnCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/cmmn/*")
@@ -30,13 +24,10 @@ public class CmmnCodeController {
 
     @Autowired
     private CmmnCodeAddValidator validator;
-
     @Autowired
     private CmmnCodeService service;
-
     @Autowired
     private CmmnCodeGroupService groupService;
-
     @Autowired
     private CmmnCodeRepository repository;
 
@@ -45,9 +36,9 @@ public class CmmnCodeController {
     public String cmmnCodeList(@PathVariable("cmmnGroupCode") String cmmnGroupCode, Model model){
         List<CmmnCode> list = repository.search(cmmnGroupCode);
 
-        model.addAttribute("list", list);
+        model.addAttribute("code", list);
 
-        CmmnCodeGroupDto cmmnCodeGroupDto = groupService.edit(cmmnGroupCode);
+        CmmnCodeGroupDto cmmnCodeGroupDto = groupService.search(cmmnGroupCode);
         model.addAttribute("gr", cmmnCodeGroupDto);
 
         return "cmmn/codeList";
@@ -56,19 +47,17 @@ public class CmmnCodeController {
     /** 공통 코드 추가 GET */
     @GetMapping("/codeAdd/{cmmnGroupCode}")
     public String cmmnCodeAdd(@PathVariable("cmmnGroupCode") String cmmnGroupCode, Model model){
-        CmmnCodeGroupDto cmmnCodeGroupDto = groupService.edit(cmmnGroupCode);
+        CmmnCodeGroupDto cmmnCodeGroupDto = groupService.search(cmmnGroupCode);
         CmmnCodeDto cmmnCodeDto = new CmmnCodeDto();
         cmmnCodeDto.setCmmnGroupCode(cmmnCodeGroupDto.getCmmnGroupCode());
-        model.addAttribute("list", cmmnCodeDto);
+        model.addAttribute("code", cmmnCodeDto);
         return "cmmn/codeAdd";
     }
 
     /** 공통 코드 추가 POST */
     @PostMapping("/codeAdd")
-    public String cmmnCodeAddPs(@Valid CmmnCodeDto cmmnCodeDto, Errors errors){
+    public String cmmnCodeAddPs(@Valid @ModelAttribute("code") CmmnCodeDto cmmnCodeDto, Errors errors){
         validator.validate(cmmnCodeDto, errors);
-//        CmmnCodeDto cmmnCodeDtoPost = new CmmnCodeDto();
-//        model.addAttribute("cmmnGroupCode", cmmnCodeDtoPost.getCmmnGroupCode());
 
         if(errors.hasErrors()){
             return "cmmn/codeAdd";
@@ -83,13 +72,13 @@ public class CmmnCodeController {
     @GetMapping("/codeEdit")
     public String edit(@RequestParam("cmmnCodeNo") Long cmmnCodeNo, Model model){
         CmmnCodeDto cmmnCodeDto = service.edit(cmmnCodeNo);
-        model.addAttribute("list", cmmnCodeDto);
+        model.addAttribute("code", cmmnCodeDto);
         return "cmmn/codeEdit";
     }
 
     /** 공통 코드 수정 POST */
     @PostMapping("/codeEdit")
-    public String update(@ModelAttribute("list") CmmnCode cmmnCode) {
+    public String update(@ModelAttribute("code") CmmnCode cmmnCode) {
         repository.save(cmmnCode);
 
         return "redirect:/cmmn/groupCodeList";

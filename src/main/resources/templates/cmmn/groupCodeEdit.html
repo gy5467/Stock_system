@@ -6,33 +6,35 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <main layout:fragment="content">
-    <form method="post" th:action="@{'/cmmn/groupCodeEdit/' + ${list.cmmnGroupCode}}">
+    <form method="post" th:action="@{/cmmn/groupCodeEdit}" th:object="${code}">
         <table class="code_add">
+            <input type="hidden" name="cmmnGroupNo" th:value="*{cmmnGroupNo}">
             <tr>
                 <th>공통 그룹 코드</th>
                 <td>
-                    <input type="text" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}">
+                    <input type="text" name="cmmnGroupCode" th:value="*{cmmnGroupCode}" readonly>
                 </td>
             </tr>
             <tr>
                 <th>공통 그룹 코드명</th>
                 <td>
-                    <input type="text" name="cmmnGroupNm" th:value="${list.cmmnGroupNm}">
+                    <input type="text" name="cmmnGroupNm" th:value="*{cmmnGroupNm}">
+                    <div th:errors="*{cmmnGroupNm}"></div>
                 </td>
             </tr>
             <tr>
                 <th>사용 여부</th>
                 <td>
-                    <select name="useAt" th:value="${list.useAt}">
-                        <option th:selected="${list.useAt}=='Y'">Y</option>
-                        <option th:selected="${list.useAt}=='N'">N</option>
+                    <select name="useAt" th:value="*{useAt}">
+                        <option th:selected="*{useAt}=='Y'">Y</option>
+                        <option th:selected="*{useAt}=='N'">N</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <th>공통 그룹 코드설명</th>
                 <td>
-                    <textarea type="text" name="cmmnGroupDc" th:text="${list.cmmnGroupDc}"></textarea>
+                    <textarea type="text" name="cmmnGroupDc" th:text="*{cmmnGroupDc}"></textarea>
                 </td>
             </tr>
         </table>

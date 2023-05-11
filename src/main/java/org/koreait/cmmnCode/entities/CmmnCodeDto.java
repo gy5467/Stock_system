@@ -1,5 +1,6 @@
 package org.koreait.cmmnCode.entities;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,9 +20,11 @@ public class CmmnCodeDto {
     private String cmmnGroupCode;
 
     // 공통 코드
+    @NotBlank(message = "필수 입력 항목입니다.")
     private String cmmnCode;
 
     // 공통 코드명
+    @NotBlank(message = "필수 입력 항목입니다.")
     private String cmmnCodeNm;
 
     // 공통 코드 설명

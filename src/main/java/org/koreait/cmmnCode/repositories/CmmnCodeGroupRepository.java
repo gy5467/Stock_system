@@ -11,16 +11,5 @@ import org.springframework.data.repository.query.Param;
 public interface CmmnCodeGroupRepository extends JpaRepository<CmmnCodeGroup, Long>, QuerydslPredicateExecutor {
     CmmnCodeGroup findByCmmnGroupCode(String cmmnGroupCode);
 
-    @Query("select a from CmmnCodeGroup a where a.cmmnGroupCode = :cmmnGroupCode")
-    CmmnCodeGroup findCmmnCodeGroup(@Param("cmmnGroupCode") String cmmnGroupCode);
-
-    /** 등록된 공통 그룹 코드 체크 */
-    default boolean isExists(String cmmnGroupCode){
-        QCmmnCodeGroup code = QCmmnCodeGroup.cmmnCodeGroup;
-        BooleanBuilder builder = new BooleanBuilder();
-        builder.and(code.cmmnGroupCode.eq(cmmnGroupCode));
-        Long cnt = this.count(builder);
-
-        return cnt > 0;
-    }
+    CmmnCodeGroup findByCmmnGroupNo(Long cmmnGroupNo);
 }

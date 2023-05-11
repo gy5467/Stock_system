@@ -5,18 +5,20 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <main layout:fragment="content">
-    <form method="post" th:action="@{/cmmn/groupCodeAdd}">
+    <form method="post" th:action="@{/cmmn/groupCodeAdd}" th:object="${code}">
         <table class="code_add">
             <tr>
                 <th>공통 그룹 코드</th>
                 <td>
                     <input type="text" name="cmmnGroupCode">
+                    <div th:errors="*{cmmnGroupCode}"></div>
                 </td>
             </tr>
             <tr>
                 <th>공통 그룹 코드명</th>
                 <td>
                     <input type="text" name="cmmnGroupNm">
+                    <div th:errors="*{cmmnGroupNm}"></div>
                 </td>
             </tr>
             <tr>

@@ -40,16 +40,10 @@ public class CmmnCodeGroupService {
         repository.save(cmmnCodeGroup);
      }
 
-    /** 공통 그룹 코드 수정 */
-    @Transactional
-    public void update(CmmnCodeGroup cmmnCodeGroup){
-        repository.save(cmmnCodeGroup);
-    }
-
     /** 공통 그룹 코드 수정 데이터 */
     @Transactional
-    public CmmnCodeGroupDto edit(String cmmnGroupCode){
-        CmmnCodeGroup cmmnCodeGroup = repository.findByCmmnGroupCode(cmmnGroupCode);
+    public CmmnCodeGroupDto edit(Long cmmnGroupNo){
+        CmmnCodeGroup cmmnCodeGroup = repository.findByCmmnGroupNo(cmmnGroupNo);
 
         CmmnCodeGroupDto cmmnCodeGroupDto = CmmnCodeGroupDto.builder()
                 .cmmnGroupNo(cmmnCodeGroup.getCmmnGroupNo())
@@ -61,9 +55,19 @@ public class CmmnCodeGroupService {
         return cmmnCodeGroupDto;
     }
 
-    /** 공통 그룹 코드 수정할 코드*/
-    public CmmnCodeGroup view(String cmmnGroupCode){
-        return repository.findByCmmnGroupCode(cmmnGroupCode);
+    /** 임시 */
+    @Transactional
+    public CmmnCodeGroupDto search(String cmmnGroupCode){
+        CmmnCodeGroup cmmnCodeGroup = repository.findByCmmnGroupCode(cmmnGroupCode);
+
+        CmmnCodeGroupDto cmmnCodeGroupDto = CmmnCodeGroupDto.builder()
+                .cmmnGroupNo(cmmnCodeGroup.getCmmnGroupNo())
+                .cmmnGroupCode(cmmnCodeGroup.getCmmnGroupCode())
+                .cmmnGroupNm(cmmnCodeGroup.getCmmnGroupNm())
+                .cmmnGroupDc(cmmnCodeGroup.getCmmnGroupDc())
+                .useAt(cmmnCodeGroup.getUseAt())
+                .build();
+        return cmmnCodeGroupDto;
     }
 
     /** 공통 그룹 코드 삭제 */

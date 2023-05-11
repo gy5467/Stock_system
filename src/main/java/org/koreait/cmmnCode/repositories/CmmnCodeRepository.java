@@ -9,8 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CmmnCodeRepository extends JpaRepository<CmmnCode, Long>, QuerydslPredicateExecutor {
-    CmmnCode findByCmmnCode(String cmmnCode);
-    CmmnCode findByCmmnGroupCodeAndCmmnCode(String cmmnGroupCode, String cmmnCode);
 
     CmmnCode findByCmmnCodeNo(Long cmmnCodeNo);
 

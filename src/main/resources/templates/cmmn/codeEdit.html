@@ -5,46 +5,47 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <main layout:fragment="content">
-    <form method="post" th:action="@{/cmmn/codeEdit}">
+    <form method="post" th:action="@{/cmmn/codeEdit}" th:object="${code}">
         <table class="code_add">
-            <input type="hidden" name="cmmnCodeNo" th:value="${list.cmmnCodeNo}">
+            <input type="hidden" name="cmmnCodeNo" th:value="*{cmmnCodeNo}">
             <tr>
                 <th>공통 그룹 코드</th>
                 <td>
-                    <input type="text" name="cmmnGroupCode" th:value="${list.cmmnGroupCode}">
+                    <input type="text" name="cmmnGroupCode" th:value="*{cmmnGroupCode}" readonly>
                 </td>
             </tr>
             <tr>
                 <th>공통 코드</th>
                 <td>
-                    <input type="text" name="cmmnCode" th:value="${list.cmmnCode}">
+                    <input type="text" name="cmmnCode" th:value="*{cmmnCode}" readonly>
                 </td>
             </tr>
             <tr>
                 <th>공통 코드명</th>
                 <td>
-                    <input type="text" name="cmmnCodeNm" th:value="${list.cmmnCodeNm}">
+                    <input type="text" name="cmmnCodeNm" th:value="*{cmmnCodeNm}">
+                    <div th:errors="*{cmmnCodeNm}"></div>
                 </td>
             </tr>
             <tr>
                 <th>정렬 순서</th>
                 <td>
-                    <input type="text" name="sort" th:value="${list.sort}">
+                    <input type="text" name="sort" th:value="*{sort}">
                 </td>
             </tr>
             <tr>
                 <th>사용 여부</th>
                 <td>
-                    <select name="useAt" th:value="${list.useAt}">
-                        <option th:selected="${list.useAt}=='Y'">Y</option>
-                        <option th:selected="${list.useAt}=='N'">N</option>
+                    <select name="useAt" th:value="*{useAt}">
+                        <option th:selected="*{useAt}=='Y'">Y</option>
+                        <option th:selected="*{useAt}=='N'">N</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <th>공통 코드설명</th>
                 <td>
-                    <textarea type="text" name="cmmnCodeDc" th:text="${list.cmmnCodeDc}"></textarea>
+                    <textarea type="text" name="cmmnCodeDc" th:text="*{cmmnCodeDc}"></textarea>
                 </td>
             </tr>
         </table>

@@ -28,14 +28,14 @@
                 </tr>
             </thead>
             <tbody class="hover">
-                <tr th:each="list : ${list}">
-                    <td th:text="${list.cmmnGroupNo}"></td>
-                    <td th:text="${list.cmmnGroupCode}"></td>
-                    <td th:text="${list.cmmnGroupNm}"></td>
-                    <td th:text="${list.useAt}"></td>
+                <tr th:each="code : ${code}">
+                    <td th:text="${code.cmmnGroupNo}"></td>
+                    <td th:text="${code.cmmnGroupCode}"></td>
+                    <td th:text="${code.cmmnGroupNm}"></td>
+                    <td th:text="${code.useAt}"></td>
                     <td>
-                        <a class="btn2" href="#" th:href="@{/cmmn/groupCodeEdit/{cmmnGroupCode}(cmmnGroupCode=${list.cmmnGroupCode})}">수정</a>
-                        <a class="btn2" href="#" th:href="@{/cmmn/codeList/{cmmnGroupCode}(cmmnGroupCode=${list.cmmnGroupCode})}">선택</a>
+                        <a class="btn2" href="#" th:href="@{/cmmn/groupCodeEdit(cmmnGroupNo=${code.cmmnGroupNo})}">수정</a>
+                        <a class="btn2" href="#" th:href="@{/cmmn/codeList/{cmmnGroupCode}(cmmnGroupCode=${code.cmmnGroupCode})}">선택</a>
                     </td>
                 </tr>
             </tbody>

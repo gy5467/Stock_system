@@ -1,7 +1,6 @@
 package org.koreait.cmmnCode.Validator;
 
 import com.querydsl.core.BooleanBuilder;
-import org.koreait.cmmnCode.entities.CmmnCode;
 import org.koreait.cmmnCode.entities.CmmnCodeDto;
 import org.koreait.cmmnCode.entities.QCmmnCode;
 import org.koreait.cmmnCode.repositories.CmmnCodeRepository;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import java.util.List;
 
 @Component
 public class CmmnCodeAddValidator implements Validator {
@@ -30,13 +27,14 @@ public class CmmnCodeAddValidator implements Validator {
         String cmmnGroupCode = cmmnCodeDto.getCmmnGroupCode();
 
         /** 코드명 중복 여부 */
-        if(cmmnCode != null && !cmmnCode.isBlank() || cmmnGroupCode != null && !cmmnGroupCode.isBlank()){
+        if(cmmnCode != null && !cmmnCode.isBlank()){
             BooleanBuilder builder = new BooleanBuilder();
             QCmmnCode cmmnCode1 = QCmmnCode.cmmnCode1;
             builder.and(cmmnCode1.cmmnCode.eq(cmmnCode));
+            builder.and(cmmnCode1.cmmnGroupCode.eq(cmmnGroupCode));
             long count = repository.count(builder);
             if(count > 0){
-                errors.rejectValue("cmmnCode", "code", "이미 추가된 코드");
+                errors.rejectValue("cmmnCode", "code", "이미 추가된 코드입니다.");
             }
         }
     }
