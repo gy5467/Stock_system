@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -40,7 +38,8 @@ public class CmmnCode {
 	private String cmmnCodeDc;
 
 	// 정렬일련번호
-	private long sort;
+	@Column(nullable = false)
+	private String sort;
 
 	// 사용여부
 	@Column(nullable = false, length = 1)

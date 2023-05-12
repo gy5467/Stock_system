@@ -1,6 +1,7 @@
 package org.koreait.cmmnCode.entities;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +32,8 @@ public class CmmnCodeDto {
     private String cmmnCodeDc;
 
     // 정렬 번호
-    private long sort;
+    @NotBlank(message = "필수 입력 항목입니다.")
+    private String sort;
 
     // 사용 여부
     private String useAt;

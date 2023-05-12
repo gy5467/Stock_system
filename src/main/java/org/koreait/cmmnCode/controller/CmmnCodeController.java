@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.cmmnCode.Service.CmmnCodeGroupService;
 import org.koreait.cmmnCode.Service.CmmnCodeService;
 import org.koreait.cmmnCode.Validator.CmmnCodeAddValidator;
+import org.koreait.cmmnCode.Validator.CmmnCodeSortValidator;
 import org.koreait.cmmnCode.entities.CmmnCode;
 import org.koreait.cmmnCode.entities.CmmnCodeDto;
 import org.koreait.cmmnCode.entities.CmmnCodeGroupDto;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class CmmnCodeController {
 
     @Autowired
     private CmmnCodeAddValidator validator;
+    @Autowired
+    private CmmnCodeSortValidator sortValidator;
     @Autowired
     private CmmnCodeService service;
     @Autowired
@@ -56,8 +60,10 @@ public class CmmnCodeController {
 
     /** 공통 코드 추가 POST */
     @PostMapping("/codeAdd")
-    public String cmmnCodeAddPs(@Valid @ModelAttribute("code") CmmnCodeDto cmmnCodeDto, Errors errors){
+    public String cmmnCodeAddPs(@Valid @ModelAttribute("code") CmmnCodeDto cmmnCodeDto, Errors errors, RedirectAttributes redirectAttributes){
         validator.validate(cmmnCodeDto, errors);
+        sortValidator.validate(cmmnCodeDto, errors);
+        redirectAttributes.addAttribute("cmmnGroupCode", cmmnCodeDto.getCmmnGroupCode());
 
         if(errors.hasErrors()){
             return "cmmn/codeAdd";
@@ -65,7 +71,7 @@ public class CmmnCodeController {
 
         service.add(cmmnCodeDto);
 
-        return "redirect:/cmmn/groupCodeList";
+        return "redirect:/cmmn/codeList/{cmmnGroupCode}";
     }
 
     /** 공통 코드 수정 GET */
@@ -78,10 +84,12 @@ public class CmmnCodeController {
 
     /** 공통 코드 수정 POST */
     @PostMapping("/codeEdit")
-    public String update(@ModelAttribute("code") CmmnCode cmmnCode) {
+    public String update(@Valid @ModelAttribute("code") CmmnCode cmmnCode, Errors errors, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("cmmnGroupCode", cmmnCode.getCmmnGroupCode());
+        sortValidator.validate(cmmnCode, errors);
         repository.save(cmmnCode);
 
-        return "redirect:/cmmn/groupCodeList";
+        return "redirect:/cmmn/codeList/{cmmnGroupCode}";
     }
 
     /** 공통 코드 삭제 GET */

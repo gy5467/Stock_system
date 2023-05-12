@@ -12,7 +12,7 @@ public interface CmmnCodeRepository extends JpaRepository<CmmnCode, Long>, Query
 
     CmmnCode findByCmmnCodeNo(Long cmmnCodeNo);
 
-    @Query("select a from CmmnCode a where a.cmmnGroupCode = :cmmn_group_code")
+    @Query("select a from CmmnCode a where a.cmmnGroupCode = :cmmn_group_code order by a.sort")
     List<CmmnCode> search(@Param("cmmn_group_code") String cmmnGroupCode);
 
 }

@@ -30,7 +30,8 @@
             <tr>
                 <th>정렬 순서</th>
                 <td>
-                    <input type="text" name="sort">
+                    <input type="number" name="sort">
+                    <div th:errors="*{sort}"></div>
                 </td>
             </tr>
             <tr>

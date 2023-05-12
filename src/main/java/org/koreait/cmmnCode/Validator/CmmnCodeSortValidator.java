@@ -10,7 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class CmmnCodeAddValidator implements Validator {
+public class CmmnCodeSortValidator implements Validator {
 
     @Autowired
     private CmmnCodeRepository repository;
@@ -21,20 +21,18 @@ public class CmmnCodeAddValidator implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(Object target, Errors errors){
         CmmnCodeDto cmmnCodeDto = (CmmnCodeDto) target;
-        String cmmnCode = cmmnCodeDto.getCmmnCode();
-        String cmmnGroupCode = cmmnCodeDto.getCmmnGroupCode();
+        String sort = cmmnCodeDto.getSort();
 
-        /** 코드명 중복 여부 */
-        if(cmmnCode != null && !cmmnCode.isBlank()){
+        /** 정렬 순서 중복 여부 */
+        if(sort != null && !sort.isBlank()){
             BooleanBuilder builder = new BooleanBuilder();
             QCmmnCode cmmnCode1 = QCmmnCode.cmmnCode1;
-            builder.and(cmmnCode1.cmmnCode.eq(cmmnCode));
-            builder.and(cmmnCode1.cmmnGroupCode.eq(cmmnGroupCode));
+            builder.and(cmmnCode1.sort.eq(sort));
             long count = repository.count(builder);
             if(count > 0){
-                errors.rejectValue("cmmnCode", "cmmnCode", "이미 추가된 코드입니다.");
+                errors.rejectValue("cmmnCode", "sort", "이미 추가된 순번입니다.");
             }
         }
     }

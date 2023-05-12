@@ -55,7 +55,7 @@ public class CmmnCodeGroupService {
         return cmmnCodeGroupDto;
     }
 
-    /** 임시 */
+    /** 코드 조회 */
     @Transactional
     public CmmnCodeGroupDto search(String cmmnGroupCode){
         CmmnCodeGroup cmmnCodeGroup = repository.findByCmmnGroupCode(cmmnGroupCode);
